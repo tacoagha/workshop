@@ -18,7 +18,7 @@ const BLOG_POSTS = [
   },
   {
     title: "We are in github pages now!",
-    date: "wtf 2026",
-    content: "Welcome again i might put anything in this site"
+    date: "2026-06-13",
+    content: "Welcome again i might put anything in this site",
   }
 ]
