@@ -16,4 +16,9 @@ const BLOG_POSTS = [
     date: "2026-06-13",
     content: "Built this site with plain HTML, CSS, and JS. No frameworks, no build tools. Just the basics.",
   },
+  {
+    title: "We are in github pages now!",
+    date: "wtf 2026",
+    content: "Welcome again i might put anything in this site"
+  }
 ]
