@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Your Name — Developer & Creator" />
+  <title>Your Name</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="page-main">
+      <section class="home-hero">
+        <div class="home-content">
+          <p class="home-tagline" id="hTagline"></p>
+          <h1 class="home-name" id="hName"></h1>
+          <p class="home-subtitle" id="hSubtitle"></p>
+          <div class="home-social" id="hSocial"></div>
+          <a class="btn btn-primary" id="hCta" href="">See My Work</a>
+        </div>
+      </section>
+      <section class="section contact-section" id="contactSection">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="contact-note" id="contactNote"></p>
+        <a class="contact-email" id="contactLink" href="">
+          <img src="Media/email.png">
+          Send Email
+        </a>
+      </section>
+    </main>
+  </div>
+  <script src="js/config.js"></script>
+  <script src="js/helpers.js"></script>
+  <script>
+    const h = window.helpers
+    const c = CONFIG
+    h.applyTheme(c.theme)
+    h.renderNav("index.html")
+    h.setPageTitle()
+    h.renderFooter()
+
+    document.getElementById("hName").textContent = c.name
+    document.getElementById("hTagline").textContent = c.tagline
+    document.getElementById("hSubtitle").textContent = c.home.subtitle
+
+    const cta = document.getElementById("hCta")
+    cta.textContent = c.home.cta.label
+    cta.href = c.home.cta.href
+
+    // Social links — only those with a url
+    const socialBox = document.getElementById("hSocial")
+    c.social.filter(s => s.url).forEach(s => {
+      const link = h.el("a", { href: s.url, class: "home-social-link", target: "_blank", rel: "noopener" }, [
+        h.el("span", { class: "home-social-icon" }, [h.iconImg(s.icon)]),
+        s.label,
+      ])
+      socialBox.appendChild(link)
+    })
+
+    // Contact
+    document.getElementById("contactNote").textContent = c.contact.note
+    const cl = document.getElementById("contactLink")
+    cl.href = "mailto:" + c.contact.email
+
+    h.initMobileNav()
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Notes — Your Name" />
+  <title>Notes</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="page-main">
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title" id="notesTitle"></h2>
+          <div class="notes-list" id="notesList"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="js/config.js"></script>
+  <script src="js/helpers.js"></script>
+  <script>
+    const h = window.helpers
+    const c = CONFIG
+    h.applyTheme(c.theme)
+    h.renderNav("notes.html")
+    h.setPageTitle("Notes")
+    h.renderFooter()
+
+    document.getElementById("notesTitle").textContent = c.notes.title
+    const list = document.getElementById("notesList")
+    c.notes.list.forEach(n => {
+      const card = h.el("div", { class: "note-card" }, [
+        h.el("div", { class: "note-date" }, [n.date]),
+        h.el("h3", { class: "note-title" }, [n.title]),
+        h.el("p", { class: "note-desc" }, [n.desc]),
+      ])
+      list.appendChild(card)
+    })
+
+    h.initMobileNav()
+  </script>
+</body>
+</html>

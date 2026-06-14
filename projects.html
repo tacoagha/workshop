@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Projects — Your Name" />
+  <title>Projects</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="page-main">
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title" id="projectsTitle"></h2>
+          <div class="projects-grid" id="projectsGrid"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="js/config.js"></script>
+  <script src="js/helpers.js"></script>
+  <script>
+    const h = window.helpers
+    const c = CONFIG
+    h.applyTheme(c.theme)
+    h.renderNav("projects.html")
+    h.setPageTitle("Projects")
+    h.renderFooter()
+
+    document.getElementById("projectsTitle").textContent = c.projects.title
+    const grid = document.getElementById("projectsGrid")
+    c.projects.list.forEach(p => {
+      const tags = p.tags.map(t => h.el("span", { class: "project-tag" }, [t]))
+      const card = h.el("a", { href: p.url, class: "project-card", target: "_blank", rel: "noopener" }, [
+        h.el("h3", { class: "project-title" }, [p.title]),
+        h.el("p", { class: "project-desc" }, [p.desc]),
+        h.el("div", { class: "project-tags" }, tags),
+      ])
+      grid.appendChild(card)
+    })
+
+    h.initMobileNav()
+  </script>
+</body>
+</html>

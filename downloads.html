@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Downloads — Your Name" />
+  <title>Downloads</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="page-main">
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title" id="downloadsTitle"></h2>
+          <div class="downloads-list" id="downloadsList"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="js/config.js"></script>
+  <script src="js/helpers.js"></script>
+  <script>
+    const h = window.helpers
+    const c = CONFIG
+    h.applyTheme(c.theme)
+    h.renderNav("downloads.html")
+    h.setPageTitle("Downloads")
+    h.renderFooter()
+
+    document.getElementById("downloadsTitle").textContent = c.downloads.title
+    const list = document.getElementById("downloadsList")
+    c.downloads.list.forEach(d => {
+      const isRemote = d.file.startsWith("http://") || d.file.startsWith("https://")
+      const btnAttrs = { href: d.file, class: "download-btn" }
+      if (isRemote) {
+        btnAttrs.target = "_blank"
+        btnAttrs.rel = "noopener"
+      } else {
+        btnAttrs.download = ""
+      }
+      const card = h.el("div", { class: "download-card" }, [
+        h.el("div", { class: "download-icon" }, [
+          h.iconImg("download"),
+        ]),
+        h.el("div", { class: "download-info" }, [
+          h.el("div", { class: "download-name" }, [d.name]),
+          h.el("div", { class: "download-desc" }, [d.desc]),
+          h.el("div", { class: "download-meta" }, [
+            h.el("span", {}, [d.size]),
+            h.el("a", btnAttrs, ["Download"]),
+          ]),
+        ]),
+      ])
+      list.appendChild(card)
+    })
+
+    h.initMobileNav()
+  </script>
+</body>
+</html>

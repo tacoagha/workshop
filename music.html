@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Music — Your Name" />
+  <title>Music</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="page-main">
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title" id="musicTitle"></h2>
+          <div class="music-list" id="musicList"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="js/config.js"></script>
+  <script src="js/helpers.js"></script>
+  <script>
+    const h = window.helpers
+    const c = CONFIG
+    h.applyTheme(c.theme)
+    h.renderNav("music.html")
+    h.setPageTitle("Music")
+    h.renderFooter()
+
+    document.getElementById("musicTitle").textContent = c.music.title
+    const list = document.getElementById("musicList")
+
+    c.music.list.forEach((t, i) => {
+      const num = String(i + 1).padStart(2, "0")
+      const card = h.el("a", { href: t.url, class: "track-card", target: "_blank", rel: "noopener" }, [
+        h.el("span", { class: "track-num" }, [num]),
+        h.el("div", { class: "track-info" }, [
+          h.el("div", { class: "track-title" }, [t.title]),
+          h.el("div", { class: "track-artist" }, [t.artist]),
+        ]),
+        h.el("span", { class: "track-play" }, ["&#9654;"]),
+      ])
+      list.appendChild(card)
+    })
+
+    h.initMobileNav()
+  </script>
+</body>
+</html>

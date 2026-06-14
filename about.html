@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About — Your Name" />
+  <title>About</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="page-main">
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title" id="aboutTitle"></h2>
+          <div class="about-content" id="aboutContent"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="js/config.js"></script>
+  <script src="js/helpers.js"></script>
+  <script>
+    const h = window.helpers
+    const c = CONFIG
+    h.applyTheme(c.theme)
+    h.renderNav("about.html")
+    h.setPageTitle("About")
+    h.renderFooter()
+
+    document.getElementById("aboutTitle").textContent = c.about.title
+    const box = document.getElementById("aboutContent")
+    c.about.paragraphs.forEach(p => {
+      box.appendChild(h.el("p", { class: "about-text" }, [p]))
+    })
+
+    h.initMobileNav()
+  </script>
+</body>
+</html>

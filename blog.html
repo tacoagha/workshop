@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Blog — Your Name" />
+  <title>Blog</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="page-main">
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Blog</h2>
+          <div class="blog-posts" id="blogList"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="js/config.js"></script>
+  <script src="js/helpers.js"></script>
+  <script src="js/blogs.js"></script>
+  <script>
+    const h = window.helpers
+    h.applyTheme(CONFIG.theme)
+    h.renderNav("blog.html")
+    h.setPageTitle("Blog")
+    h.renderFooter()
+
+    function formatDate(dateStr) {
+      const d = new Date(dateStr)
+      return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+    }
+
+    function renderPosts() {
+      const list = document.getElementById("blogList")
+      if (!BLOG_POSTS.length) {
+        list.innerHTML = '<div class="blog-empty">No posts yet.</div>'
+        return
+      }
+      const posts = BLOG_POSTS
+        .map((p, i) => ({ ...p, _idx: i }))
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+      list.innerHTML = posts.map(p => `
+        <a href="post.html?id=${p._idx}" class="blog-post" style="display:block;color:inherit;">
+          <div class="blog-post-header">
+            <span class="blog-post-date">&#128197; ${formatDate(p.date)}</span>
+          </div>
+          <h3 class="blog-post-title">${h.escapeHtml(p.title)}</h3>
+          <div class="blog-post-content">${h.escapeHtml(p.content)}</div>
+        </a>
+      `).join("")
+    }
+
+    renderPosts()
+    h.initMobileNav()
+  </script>
+</body>
+</html>
